@@ -1,13 +1,24 @@
-class boat:
-    def __init__(self, free_slot:bool, weight:int, lightest:int):
-        self.free_slot=free_slot
-        self.weight=weight
-        self.lightest=lightest
+
+import time
 class Solution:
     
     def numRescueBoats(self, people: List[int], limit: int) -> int:
-        boats=[]:[boat]
+        startTime=time.time()
+        people.sort()
+        print("tiempo sort="+str(startTime-time.time()))
+        print("termina sort")
+        res=0
         while len(people)>0:
-            viable_boats=sorted([boat for boat in boats if boat.lightest< people[0] and boat.weight-boat.lightest<=people[0]], key=lambda boat:boat.lightest)
-
-
+            if len(people)==1:
+                res=res+1
+                print("tiempo terminar="+str(startTime-time.time()))
+                return res
+            if people[0] + people[len(people)-1]>limit:
+                people.remove(people[len(people)-1])
+                res=res+1
+            else:
+                people.remove(people[0])
+                people.remove(people[len(people)-1])
+                res=res+1
+        print("tiempo terminar="+str(startTime-time.time()))
+        return res
