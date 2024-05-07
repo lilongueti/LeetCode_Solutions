@@ -1,4 +1,3 @@
-
 import time
 class Solution:
     
@@ -6,19 +5,18 @@ class Solution:
         startTime=time.time()
         people.sort()
         print("tiempo sort="+str(startTime-time.time()))
-        print("termina sort")
         res=0
-        while len(people)>0:
-            if len(people)==1:
-                res=res+1
-                print("tiempo terminar="+str(startTime-time.time()))
-                return res
-            if people[0] + people[len(people)-1]>limit:
-                people.remove(people[len(people)-1])
-                res=res+1
+        primero=0
+        ultimo=len(people)-1
+        while ultimo>primero:
+            if people[primero] + people[ultimo]>limit:
+                ultimo-=1
+                res+=1
             else:
-                people.remove(people[0])
-                people.remove(people[len(people)-1])
-                res=res+1
+                primero=primero+1
+                ultimo-=1
+                res+=1
+        if primero==ultimo:
+            res+=1
         print("tiempo terminar="+str(startTime-time.time()))
         return res
